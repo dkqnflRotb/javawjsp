@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/T2")
+//@WebServlet("/T2")
 public class Test2 extends HttpServlet {
 //	private static final long serialVersionUID = 1L;  //물흐르듯이 직렬방식으로 쓰기위해 씀
 
