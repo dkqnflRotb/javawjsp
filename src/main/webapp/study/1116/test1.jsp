@@ -3,18 +3,14 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>test2.jsp</title>
+  <title>test1.jsp</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
-<!--  로그인창에서 '아이디/비밀번호/성명'을 입력후
-      서버로 전송후, 관리자 인증이 되면 인증성공창에서 입력된 '아이디/성명'을
-      모두 출력하시오.
- -->
 <body>
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="<%=request.getContextPath()%>/j1114_Test2">
+  <form name="myform" method="post" action="test1Ok.jsp">
   	<div class="border m-4 p-4">
 	    <div><h2 class="text-center">로 그 인</h2></div>
 	    <hr/>
@@ -32,7 +28,6 @@
 	  	  <div class="col-6"><input type="reset" value="다시입력" class="btn btn-warning form-control"/></div>
 	  	</div>
   	</div>
-	  <input type="hidden" name="hostIp" value="<%=request.getRemoteAddr()%>"/>
   </form>
 </div>
 <p><br/></p>

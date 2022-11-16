@@ -8,69 +8,109 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
 		'use strict';
-		let fruitvalue="";
+		let productvalue="";
+		var idx=0;
 		function fCheck(){
-			let addText1 = document.getElementById("addText1").value;
-			
-			if(addText1==""){
-				alert("첫번째 상폼은 꼭 등록하셔야 주문이 완료됩니다.");
-				document.getElementById("addText1").focus();
+		  if(idx==1){
+				let good1 = document.getElementById("good").value;
+				let buyer1 = document.getElementById("buyer").value;
+				
+				if(buyer1==""){
+					alert("구매자 이름을 작성해주세요");
+					document.getElementById("buyer").focus();
+				}
+				else if(good1==""){
+					alert("첫번째 상폼은 꼭 등록하셔야 주문이 완료됩니다.");
+					document.getElementById("good").focus();
+				}
+				else{
+					myform.submit();
+				}
 			}
-			else{
-				myform.submit();
-			}
+		  else {
+			  alert("상품을 추가해주세요");
+		  }
 		}
 	  let addTbl;
 	  function insRow() {
+	    if(productvalue==""){
+	    	alert("상품 분류를 선택해주세요");
+	    }
+	    else{
+			idx=1;
+	    
 	    addTbl = document.getElementById("addTable");
 	    let addRow = addTbl.insertRow();   // addTbl테이블의 행의 개념으로 한개를 추가....의 의미
 	    addRow.onmouseover = function() {   // clickedRowIndex : 클릭한 Row의 위치를 반환(확인)
+	    // 앞에서 삽입시켜놓은 셀에 추가될 테이블의 내용을 기록해 준다.
 	    	addTbl.clickedRowIndex = this.rowIndex;
 	    }
 	    let addCell = addRow.insertCell();    // 앞에서 클릭된 행의 위치를 얻어와서, 현재 테이블 해당행의 열(셀)로 삽입한다.
-	
-	    // 앞에서 삽입시켜놓은 셀에 추가될 테이블의 내용을 기록해 준다.
 	    let formTag = "";
-	    formTag += '상품 : <input type="text" value="'+fruitvalue+'" name="addText1" style="width:60px;height:20px" />';
-	    // formTag += '수량:<input type="text" name="addText2" style="width:60px; height:20px; " onblur="formCalc()"/>';
-	    formTag += ' 수량 : <input type="text" name="addText2" style="width:60px;height:20px"; "/>';
-	    formTag += ' 금액 : <input type="text" name="result" readonly style="width:60px;height:20px" />';
-	    formTag += '  <input type="button" value="삭제" onclick="removeRow()"/>';
+	    formTag += '상품 분류 : <input type="text" value="'+productvalue+'" name="productClss" style="width:80px;height:22px; text-align:center;" /><br/>';
+	    formTag += '<div>상품 : <input type="text" value="" name="goods" id="good" autofocus style="width:60px; height:20px; " />';  //onblur="formCalc()"
+	    formTag += ' 수량 : <input type="text" name="su"  style="width:55px;height:20px"; onblur="formCalc()"/>';
+	    formTag += ' 단일 금액 : <input type="text" name="result"  style="width:80px;height:20px" onblur="formCalc()"/><br/>'
+	    formTag += '총 금액 : <input type="text" name="totresult" id="addText5" readonly style="width:100px; height:20px;" /><br/>';
+	    formTag += '  <input class="btn-outline-danger form-control"type="button" value="삭제" onclick="removeRow()"/></div><hr/>';
 	    
 	    addCell.innerHTML = formTag;
+	    }
 	  }
-		
+	  function formCalc(){
+		  for(var i=5; i<myform.elements.length; i++){
+		  	if(myform.elements[i].name == "su" && myform.elements[i].value != "" && myform.elements[i+1].value != "") {
+		  		let tot = parseInt(myform.elements[i].value) * parseInt(myform.elements[i+1].value);
+		  		myform.elements[i+2].value=tot.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
+		  	}
+		  }
+	  }
 	  function fruit(e){
-			fruitvalue = e.value;
+		  productvalue = e.value;
 	  }
 	  function removeRow() {
 		  addTable.deleteRow(addTbl.clickedRowIndex);
 	  }
 	</script>
 	<style>
-		#addTable{
-			display=none;
+		#tdtd {
+			text-align:center;
+			width:350px;
+		}
+		#addTable {
+			margin : 0 auto;
 		}
 		
+		#addTable div {
+		  margin : 0 auto;
+			text-align:right;
+		}
+		h2, p{
+			text-align:center;
+		}
+		input[type="text"]{
+			text-align:right;
+		}
 	</style>
 </head>
 <body>
 <p><br/></p>
 <div class="container">
   <h2>상 품 등 록</h2>
-  <form name="myform" method="post" action="<%=request.getContextPath()%>/j1114_Test3Ok">
-		<table>
+  <form name="myform" method="post" action="<%=request.getContextPath()%>/Hw2022_11_14">
+		<table class="table">
       <tr>
-        <td>
-			  	<p>구매자 : <input type="text" name="buyer" id="buyer" autofous /></p>
-			  	<p>상품 : 
+        <td id="tdtd">
+			  	<p>구매자 : <input type="text" value="" name="buyer" id="buyer" /></p>
+			  	<p>상품 분류: 
 			  		<select name="product" onchange="fruit(this)">
-			  			<option value="" readonly>상품을 선택하세요</option>
-			  			<option value="오렌지">오렌지</option>
-			  			<option value="멜론">멜론</option>
-			  			<option value="사과">사과</option>
-			  			<option value="바나나">바나나</option>
-			  			<option value="수박">수박</option>
+			  			<option value="">상품분류을 선택하세요</option>
+			  			<option value="과일">과일</option>
+			  			<option value="전자제품">전자제품</option>
+			  			<option value="생활용품">생활용품</option>
+			  			<option value="의류">의류</option>
+			  			<option value="애완용품">애완용품</option>
+			  			<option value="식품">식품</option>
 		  	 		</select>
 					<p>
 						<input type="button" value="상품 추가하기" onclick="insRow()" />
@@ -79,13 +119,8 @@
       </tr>
       <tr>
         <td>
-          <table id="addTable" width="400px">
+          <table id="addTable" >
             <tr>
-              <td style="display: none">
-                상품 : <input type="text" name="addText1" id="addText1" style=width:60px;height:20px;/>
-                수량 : <input type="text" name="addText2" id="addText2" style=width:60px;height:20px;/>
-                금액 : <input type="text" name="result" id="addText3" readonly style="width:60px; height:20px;"/>
-              </td>
             </tr>
           </table>
         </td>
@@ -93,8 +128,8 @@
     </table>
     <br/>
     <p>
-  		<input class="btn btn-outline-primary" type="button" value="전송" onclick="fCheck()" />
-			<input class="btn btn-outline-danger" type="reset" value="초기화" />
+  		<input type="button" class="btn btn-primary"  value="전송" onclick="fCheck()" />
+			<input type="button" class="btn btn-danger"  value="초기화" onclick="location.reload()"/>
 		</p> 
   </form>
 </div>
