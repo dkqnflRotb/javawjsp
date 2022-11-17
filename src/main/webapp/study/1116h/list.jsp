@@ -1,4 +1,23 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%  
+	DecimalFormat decFormat = new DecimalFormat("###,###");
+    String productClss=request.getParameter("productClss");
+    String good=request.getParameter("good")==null ? "" : request.getParameter("good");
+    String su=request.getParameter("su");
+    String result=request.getParameter("result");
+    String totresult=request.getParameter("totresult");
+		
+    String[] arrypro=productClss.split("/");
+    String[] arrygood=good.split("/");
+    String[] arrysu=su.split("/");
+    String[] arryresult=result.split("/");
+    
+		String[] tot=new String[arrygood.length];
+    
+    System.out.println(productClss);
+ 
+ %>
 <!-- list.jsp -->
 
 <!DOCTYPE html>
@@ -49,31 +68,25 @@
 			<table class='table table-bordered'><tr class='table-info text-info'>
 			<th>상품 분류</th><th>상품명</th><th>수량</th><th>금액</th><th>총 금액</th>
 		    
-		    	
-		    <!-- int hapresult = 0;
-		    DecimalFormat decFormat = new DecimalFormat("###,###");
-		    
-		    for(int i=0;i<goods.length;i++) {
-		    	String productClss=proproductClss[i];
-		    	String good= goods[i];
-		    	String su= sus[i];
-		    	String result= decFormat.format(Integer.parseInt(results[i]))+"원";
-		    	String totresult= totresults[i];
-		    	int abc = Integer.parseInt(totresult.substring(0,totresult.length()-1).replaceAll(",","")); 
-		    	hapresult += abc;
-		    	
-		    }-->
+		  <%if(!good.equals("")){
+		  for(int i=0; i<arrygood.length; i++){
+		  	
+		  	tot[i]=decFormat.format((Integer.parseInt(arrysu[i])*Integer.parseInt(arryresult[i])))+"원";
+		  	arryresult[i]=decFormat.format(Integer.parseInt(arryresult[i]))+"원"; 
+		  %>
 			<tr>
-			<td>d</td>
-			<td>d</td>
-			<td>d</td>
-			<td>d</td>
-			<td>d</td>
+			<td><%= arrypro[i] %></td>
+			<td><%= arrygood[i] %></td>
+			<td><%= arrysu[i] %></td>
+			<td><%= arryresult[i] %></td>
+			<td><%=  tot[i]   %></td>
 			</tr>
+			<% }}%>
 			    <!-- String tot = decFormat.format(hapresult)+"원"; -->
-			    <!-- out.println("<tr class='table-dark text-white'><td>총가격</td><td colspan='4'>" + tot + "</td></tr>"); -->
+			    <tr class='table-dark text-white'><td><b>총가격</b></td><td colspan='4'>${vo.totresult}</td></tr>
 			</table>
-			<a href="<%=request.getContextPath()%>/study/1116h/main.jsp" class="btn btn-success form-control">돌아가기</a>
+			<a href="${pageContext.request.contextPath}/j1116h/Input1?buyer=${vo.buyer}&productClss=${vo.productClss}&good=${vo.good}&su=${vo.su}&result=${vo.result}&totresult=${vo.totresult}" class="btn btn-success form-control">돌아가기</a>
+			<a href="${pageContext.request.contextPath}/j1116h/Input1"class="btn btn-danger mt-2 form-control">초기화</a>
 			<div id="footer">
 			  <%-- <%@ include file="footer.jsp" %> --%>
 			  <jsp:include page="footer.jsp"></jsp:include>

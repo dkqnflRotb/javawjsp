@@ -80,7 +80,7 @@
     let addCell = addRow.insertCell();    // 앞에서 클릭된 행의 위치를 얻어와서, 현재 테이블 해당행의 열(셀)로 삽입한다.
     let formTag = "";
     formTag += '상품 분류 : <input type="text" value="'+productvalue+'" name="productClss" style="width:80px;height:22px; text-align:center;" /><br/>';
-    formTag += '<div>상품 : <input type="text" value="" name="goods" id="good" autofocus style="width:60px; height:20px; " />';  //onblur="formCalc()"
+    formTag += '<div>상품 : <input type="text" value="" name="good" id="good" autofocus style="width:60px; height:20px; " />';  //onblur="formCalc()"
     formTag += ' 수량 : <input type="text" name="su"  style="width:55px;height:20px"; onblur="formCalc()"/>';
     formTag += ' 단일 금액 : <input type="text" name="result"  style="width:80px;height:20px" onblur="formCalc()"/><br/>'
     formTag += '총 금액 : <input type="text" name="totresult" id="addText5" readonly style="width:100px; height:20px;" /><br/>';

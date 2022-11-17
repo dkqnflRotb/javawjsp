@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String sw = request.getParameter("sw")==null? "" : request.getParameter("sw");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +48,6 @@
 		input[type="text"]{
 			text-align:right;
 		}
-		
 	</style>
 </head>
 <body>
@@ -65,7 +61,7 @@
 	  <br/>
 	  <h2>이 곳은 메인화면입니다.</h2>
 	  <hr/>
-	  <p><img src="${pageContext.request.contextPath}/images/람보르기니btn.jpg" width="600px"/></p>
+	  <p><img src="https://www.lgcns.com/wp-content/uploads/2021/11/9923143E5CDE636C07.png" width="600px"/></p>
 	  <br/>
   </div>
   <!-- 푸터영역(Copyright나 주소, 소속, 작성자 등을 기술한다.) -->

@@ -13,7 +13,7 @@
  
 <!-- 자바 클래스(VO)를 사용하여 넘어온 값들을 저장하고자 한다.  -->
 <!-- 자바클래스는 jsp액션태그(jsp:useBean)를 사용한다. -->
-<jsp:useBean id="vo" class="j1117.Test1VO"/>
+<jsp:useBean id="vo" class="study.j1117.Test1VO"/>
 
 <!-- 생성된 클래스에 값을 넣을때 : jsp:setProperty태그사용 -->
 <%-- <jsp:setProperty property="name" name="vo"/>
@@ -28,7 +28,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>testF2Ok.jsp</title>
+  <title>testF3Ok.jsp</title>
   <jsp:include page="../../../include/bs4.jsp"></jsp:include>
 </head> 
 <body>
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<th>나이</th>
-					<td>${age+1} / <jsp:getProperty property="age" name="vo"/> </td>
+					<td>${age+1} / <jsp:getProperty property="age" name="vo" /> </td>
 				</tr>
 				<tr>
 					<th>직업</th>
