@@ -16,5 +16,9 @@ create table jusorok (
 desc jusorok;
 
 insert into jusorok values (default, 'admin', '1234', '관리자', default, default);
+insert into jusorok values (default, 'abcd', '1234', 'abcd', default, default);
+insert into jusorok values (default, 'ranada', '1234', '가나다', default, default);
+insert into jusorok values (default, 'rlaehdaud', '1234', '김동명', default, default);
+insert into jusorok values (default, 'green', '1234', '그린', default, default);
 
 select* from jusorok;

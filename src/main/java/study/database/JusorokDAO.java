@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 
@@ -60,7 +61,7 @@ public class JusorokDAO {
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) name = rs.getString("name");
+ 			if(rs.next()) name = rs.getString("name");
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
 		} finally {
@@ -68,5 +69,37 @@ public class JusorokDAO {
 		}
 		return name;
 	}
+
+	public void logout() {
+		// TODO Auto-generated method stub
+		
+	}
+//전체 회원 조회하기
+	public ArrayList<JusorokVO> getMemberList() {
+		ArrayList<JusorokVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from jusorok order by idx desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new JusorokVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setName(rs.getString("name"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLastDate(rs.getString("lastDate"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
+	}
+	
 
 }
