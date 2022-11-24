@@ -14,35 +14,6 @@
   </style>
 </head>
 <body>
-<%
-	/*
-		현 접속자의 IP를 구합니다.
-	*/
-	String clp = request.getRemoteAddr();
-	/*
-		허가된 IP목록 입니다.
-		아래배열에 추가하면 해당IP에 대해 access가 허용 됩니다.
-	*/
-	
-	if (clp.equals("0:0:0:0:0:0:0:1")) {
-		clp = "192.168.50.145";
-	}
-	String alpTable[]= {"192.168.50.145","192.168.50.218","*"};
-	int i;
-	int iOK = 0;
-	for(i=0; i<alpTable.length; i++){
-		if(alpTable[i].equals(clp)){
-			iOK=1;
-			break;
-		}
-	}
-	if( iOK==0){
-		System.out.println("[IP차단] Access Denied : " + clp);
-		response.sendRedirect("../../../");
-		
-		return;
-	}
-%>
 <jsp:include page="include/header.jsp"/>
 
 <div class="container" style="margin-top:30px">

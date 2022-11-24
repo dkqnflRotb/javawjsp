@@ -20,10 +20,12 @@ public class EncodingFilter implements Filter{
 	//		response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=utf-8");
 			
+			System.out.println();
 			System.out.println("이곳은 Filter통과 전");
 			
 			chain.doFilter(request, response);
 			
 			System.out.println("이곳은 Filter통과 후");
-		}
+			System.out.println();
+	}
 }
