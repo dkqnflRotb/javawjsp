@@ -138,5 +138,23 @@ public class GuestDAO {
 		}
 		return totRecCnt;
 	}
+
+	public int bangCnt(String nickName) {
+		int bangCnt=0;
+		try {
+			sql="select count(*) as cnt from guest where name=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickName);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			bangCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return bangCnt;
+	}
 }
 
