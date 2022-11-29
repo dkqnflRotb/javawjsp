@@ -16,7 +16,7 @@ public class MemNickCheckCommand implements MemberInterFace {
 		
 		MemberVO vo = dao.getNickCheck(nickName);
 		
-		if(vo == null) { //사용 가능한 아이디
+		if(vo == null) {   // 닉네임이 넘어왔는지 확인
 			request.setAttribute("resN",1);
 		}
 		else {

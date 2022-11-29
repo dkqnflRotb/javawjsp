@@ -5,3 +5,17 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+	html,body {
+    height: 100%;
+  }
+	#wrap {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 60px;
+	}
+	footer {
+		position: relative; 
+    transform: translatY(-100%);
+	}
+</style>

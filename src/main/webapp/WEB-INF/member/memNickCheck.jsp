@@ -26,6 +26,8 @@
 		
 		function sendCheck(){
 			opener.window.document.myform.nickName.value = '${nickName}';
+			// opener.window.document.myform.nickName.disabled = true;
+    	opener.window.document.myform.nickName.readOnly = true;
 			opener.window.document.myform.name.focus();
 			window.close();
 		}

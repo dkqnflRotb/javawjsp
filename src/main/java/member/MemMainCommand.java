@@ -38,14 +38,16 @@ public class MemMainCommand implements MemberInterFace {
 		
 		// 사용자가 방명록에서 글쓴 회수 가져오기.....
 		GuestDAO guestDao = new GuestDAO();
-		if(vo.getName()!=vo.getNickName()) {
-			int bangcnt = guestDao.bangCnt(vo.getName());
-			int bangcnt1 = guestDao.bangCnt(vo.getNickName());
-			System.out.println("bangcnt = "+ bangcnt);
-			System.out.println("bangcnt1 = "+ bangcnt1);
-			int totbangcnt= bangcnt+bangcnt1;
-			request.setAttribute("totbangcnt", totbangcnt);
-		}
+    if(vo.getName().equals(vo.getNickName())) {
+        int bangcnt = guestDao.bangCnt(vo.getName());
+        request.setAttribute("totbangcnt", bangcnt);
+    }
+    else {
+        int bangcnt = guestDao.bangCnt(vo.getName());
+        int bangcnt1 = guestDao.bangCnt(vo.getNickName());
+        int totbangcnt= bangcnt+bangcnt1;
+        request.setAttribute("totbangcnt", totbangcnt);
+    }
 		
 	}
 

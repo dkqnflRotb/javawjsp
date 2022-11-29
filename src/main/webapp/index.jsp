@@ -15,8 +15,7 @@
 </head>
 <body>
 <jsp:include page="include/header.jsp"/>
-
-<div class="container" style="margin-top:30px">
+<div class="container" id="wrap" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
       <h2>About Me</h2>
@@ -56,6 +55,8 @@
     </div>
   </div>
 </div>
-<jsp:include page="include/footer.jsp"/>
+<footer>
+	<jsp:include page="include/footer.jsp"/>
+</footer>
 </body>
 </html>
