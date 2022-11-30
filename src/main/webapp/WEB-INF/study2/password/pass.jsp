@@ -39,27 +39,29 @@
 <body>
 	<jsp:include page="/include/header.jsp"/>
 	<p><br/></p>
-	<div class="container">
-  	<h2>비밀번호 암호화 연습</h2>
-  	<p>(비밀번호를 10자 이내로 입력하세요.)</p>
-  	<br/>
-  	<form name="myform" method="post">
-  		<table class="table table-bordered">
-  			<tr>
-  				<td>
-  					<p>아이디 : <input type="text" name="mid" value="hkd1234" class="form-control"/></p>
-  					<p>비밀번호 : <input type="password" name="pwd" maxlength="9" autofocus class="form-control"/></p>
-  					<p><input type="button" value="확인(숫자비밀번호)" onclick="fCheck(1)" class="form-control"/></p>
-  					<p><input type="button" value="확인(혼합비밀번호)" onclick="fCheck(2)" class="form-control"/></p>
-  					<p><input type="button" value="확인(SHA256)" onclick="fCheck(3)" class="form-control"/></p>
-  				</td>
-  			</tr>
-  		</table>
-  		<input type="hidden" name="idx"/>
-  	</form>
-  	<!-- <div id="demo"></div>
-  	<div id="demo2"></div> -->
-  	<p>비밀번호를 전송후 콘솔창을 확인하세요.</p>
+	<div id="wrap">
+		<div class="container">
+	  	<h2>비밀번호 암호화 연습</h2>
+	  	<p>(비밀번호를 10자 이내로 입력하세요.)</p>
+	  	<br/>
+	  	<form name="myform" method="post">
+	  		<table class="table table-bordered">
+	  			<tr>
+	  				<td>
+	  					<p>아이디 : <input type="text" name="mid" value="hkd1234" class="form-control"/></p>
+	  					<p>비밀번호 : <input type="password" name="pwd" maxlength="9" autofocus class="form-control"/></p>
+	  					<p><input type="button" value="확인(숫자비밀번호)" onclick="fCheck(1)" class="form-control"/></p>
+	  					<p><input type="button" value="확인(혼합비밀번호)" onclick="fCheck(2)" class="form-control"/></p>
+	  					<p><input type="button" value="확인(SHA256)" onclick="fCheck(3)" class="form-control"/></p>
+	  				</td>
+	  			</tr>
+	  		</table>
+	  		<input type="hidden" name="idx"/>
+	  	</form>
+	  	<!-- <div id="demo"></div>
+	  	<div id="demo2"></div> -->
+	  	<p>비밀번호를 전송후 콘솔창을 확인하세요.</p>
+		</div>
 	</div>
 	<p><br/></p>
 	<jsp:include page="/include/footer.jsp"/>

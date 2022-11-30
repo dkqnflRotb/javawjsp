@@ -50,43 +50,44 @@
 <body>
 	<jsp:include page="/include/header.jsp"/>
 	<p><br/></p>
-	<div class="container">
-		<form name="myform" method="post" action="${ctp}/memUpdatePwdOk.mem" clss="was-validated">
-			<h2 class="text-center">비밀번호 변경</h2>
-			<br/>
-			<table class="table table-vordered">
-				<tr>
-					<th>기존 비밀번호</th>
-					<td>
-						<input type="password" name="oldPwd" id="oldPwd" autofocus required class="form-control"/>
-						<div class="invalid-feedback">기존 비밀번호를 입력하세요.</div>					
-					</td>
-				</tr>
-				<tr>
-					<th>새 비밀번호</th>
-					<td>
-						<input type="password" name="newPwd" id="newPwd" autofocus required class="form-control"/>
-						<div class="invalid-feedback">새 비밀번호를 입력하세요.</div>					
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td>
-						<input type="password" name="rePwd" id="rePwd" autofocus required class="form-control"/>
-						<div class="invalid-feedback">새 비밀번호를 한번더 입력하세요.</div>					
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-center">
-						<input type="button" value="비밀번호변경" onclick="fCheck()" class="btn btn-success"/> &nbsp;
-						<input type="reset" value="다시입력" class="btn btn-success"/> &nbsp;
-						<input type="button" value="돌아가기" onclick="location.href='${ctp}/memMain.mem';" class="btn btn-success"/>
-						
-					</td>
-				</tr>
-			</table>
-		</form>
-  	
+	<div id="wrap">
+		<div class="container">
+			<form name="myform" method="post" action="${ctp}/memUpdatePwdOk.mem" class="was-validated">
+				<h2 class="text-center">비밀번호 변경</h2>
+				<br/>
+				<table class="table table-vordered">
+					<tr>
+						<th>기존 비밀번호</th>
+						<td>
+							<input type="password" name="oldPwd" id="oldPwd" autofocus required class="form-control"/>
+							<div class="invalid-feedback">기존 비밀번호를 입력하세요.</div>					
+						</td>
+					</tr>
+					<tr>
+						<th>새 비밀번호</th>
+						<td>
+							<input type="password" name="newPwd" id="newPwd" autofocus required class="form-control"/>
+							<div class="invalid-feedback">새 비밀번호를 입력하세요.</div>					
+						</td>
+					</tr>
+					<tr>
+						<th>비밀번호 확인</th>
+						<td>
+							<input type="password" name="rePwd" id="rePwd" autofocus required class="form-control"/>
+							<div class="invalid-feedback">새 비밀번호를 한번더 입력하세요.</div>					
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-center">
+							<input type="button" value="비밀번호변경" onclick="fCheck()" class="btn btn-success"/> &nbsp;
+							<input type="reset" value="다시입력" class="btn btn-success"/> &nbsp;
+							<input type="button" value="돌아가기" onclick="location.href='${ctp}/memMain.mem';" class="btn btn-success"/>
+							
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
 	<p><br/></p>
 	<jsp:include page="/include/footer.jsp"/>

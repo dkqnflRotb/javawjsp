@@ -29,7 +29,6 @@
       let regTel = /\d{2,3}-\d{3,4}-\d{4}$/g;
       
       let submitFlag = 0;		// 전송체크버튼으로 값이 1이면 체크완료되어 전송처리한다.
-
       // 유효성검사를 위해 폼안의 내용들을 모두 변수에 담는다.
     	let mid = myform.mid.value;
     	let pwd = myform.pwd.value;
@@ -112,7 +111,6 @@
 			let detailAddress = myform.detailAddress.value + " ";
 			let extraAddress = myform.extraAddress.value + " ";
 			myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
-
     	// 파일 전송전에 파일에 관한사항 체크..(파일명이 넘어올경우는 해당 파일을 넘기고, 비었으면 'noimage.jpg'를 넘겨준다.)
     	// 전송전에 파일에 관한 사항체크...(회원사진의 내역이 비었으면 noimage를 hidden필드인 photo필드에 담아서 전송한다.)
     	if(fName.trim() == ""){
@@ -137,18 +135,21 @@
     		
     		submitFlag == 1
     	}
-    	
+    	/* let hobby12 = myform.hobby.value; */
     	// 전송전에 모든 체크가 끝났다면 submitFlag가 1이 되도록 처리후 서버로 전송한다.
 	  	if(submitFlag == 1){
 	  		// 아이디와 닉네임 중복체크버튼에 대한 체크를 해야함
-	  			if(idCheckSw == 0) {
-    			alert("아이디 중복체크버튼을 눌러주세요!");
-    			document.getElementById("midBtn").focus();
+  			if(idCheckSw == 0) {
+   			alert("아이디 중복체크버튼을 눌러주세요!");
+   			document.getElementById("midBtn").focus();
     		}
     		else if(nickCheckSw == 0) {
     			alert("닉네임 중복체크버튼을 눌러주세요!");
     			document.getElementById("nickNameBtn").focus();
     		}
+    	  else if($('input:checkbox[name="hobby"]:checked').length == 0){
+    			alert("취미를"+$('input:checkbox[name="hobby"]:checked').length+"개 선택했습니다. 취미를 골라주세요!");
+    		} 
     		else {
 	  			// 묶여진 필드(email/tel)를 폼태그안에 hidden태그의 값으로 저장시켜준다.
 	  			myform.email.value = email;
@@ -308,7 +309,7 @@
       </select>
     </div>
     <div class="form-group">
-      <div class="form-check-inline">
+      <div class="form-check-inline" >
         <span class="input-group-text">취미</span> &nbsp; &nbsp;
 			  <label class="form-check-label">
 			    <input type="checkbox" class="form-check-input" value="등산" name="hobby"/>등산

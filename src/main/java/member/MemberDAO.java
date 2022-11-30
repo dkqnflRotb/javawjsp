@@ -147,16 +147,18 @@ public class MemberDAO {
 		return res;
 	}
 
-	public ArrayList<MemberVO> getMemList(int level) {
+	public ArrayList<MemberVO> getMemList(int startIndexNo, int pageSize, int level) {
 		ArrayList<MemberVO> vos = new ArrayList<>();
 		try {
 			if(level != 0) {
-				sql = "select * from member where userInfor ='공개' order by idx desc";
+				sql = "select * from member where userInfor ='공개' order by idx desc limit ?,?";
 			}
 			else {
-				sql = "select * from member order by idx desc";
+				sql = "select * from member order by idx desc limit ?,?";
 			}
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -245,4 +247,84 @@ public class MemberDAO {
 		}
 		return res;
 	}
+
+	// 방명록의 총 레코드 건수 구하기
+	public int totRecCnt() {
+		int totRecCnt = 0;
+		try {
+			sql="select count(*) as cnt from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+//			totRecCnt = rs.getInt(1);
+			totRecCnt = rs.getInt("cnt");
+			
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+
+	// 회원 자료 검색
+	public ArrayList<MemberVO> getMemberSearch(String mid) {
+		ArrayList<MemberVO> vos= new ArrayList<>();
+		try {
+			sql = "select * from member where mid like ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+mid+"%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo= new MemberVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setName(rs.getString("name"));
+				vo.setGender(rs.getString("gender"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setJob(rs.getString("job"));
+				vo.setHobby(rs.getString("hobby"));
+				vo.setPhoto(rs.getString("photo"));
+				vo.setContent(rs.getString("content"));
+				vo.setUserInfor(rs.getString("userInfor"));
+				vo.setUserDel(rs.getString("userDel"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLevel(rs.getInt("level"));
+				vo.setVisitCnt(rs.getInt("visitCnt"));
+				vo.setStartDate(rs.getString("startDate"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCnt(rs.getInt("todayCnt"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	// 회원 탈퇴처리(userDel필드의 값을 'OK'로 변경처리한다.
+	public void setMemberDel(String mid) {
+		try {
+			sql = "update member set userDel = 'OK' where mid =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
 }

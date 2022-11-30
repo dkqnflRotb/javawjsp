@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,6 @@
       let regTel = /\d{2,3}-\d{3,4}-\d{4}$/g;
       
       let submitFlag = 0;		// 전송체크버튼으로 값이 1이면 체크완료되어 전송처리한다.
-
       // 유효성검사를 위해 폼안의 내용들을 모두 변수에 담는다.
     	let nickName = myform.nickName.value;
     	let name = myform.name.value;
@@ -96,7 +96,6 @@
 			let detailAddress = myform.detailAddress.value + " ";
 			let extraAddress = myform.extraAddress.value + " ";
 			myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
-
     	// 파일 전송전에 파일에 관한사항 체크..(파일명이 넘어올경우는 해당 파일을 넘기고, 비었으면 'noimage.jpg'를 넘겨준다.)
     	// 전송전에 파일에 관한 사항체크...(회원사진의 내역이 비었으면 noimage를 hidden필드인 photo필드에 담아서 전송한다.)
     	if(fName.trim() == ""){
@@ -278,7 +277,7 @@
       </select>
     </div>
     <div class="form-group">
-      <div class="form-check-inline">
+      <%-- <div class="form-check-inline">
         <span class="input-group-text">취미</span> &nbsp; &nbsp;
 			  <label class="form-check-label">
 			    <input type="checkbox" class="form-check-input" value="등산" name="hobby" <c:forEach var="hobby" items="${hobbys}" varStatus="st"><c:if test="${hobby=='등산'}">checked</c:if></c:forEach>/>등산
@@ -323,7 +322,12 @@
 			  <label class="form-check-label">
 			    <input type="checkbox" class="form-check-input" value="기타" name="hobby" <c:forEach var="hobby" items="${hobbys}" varStatus="st"><c:if test="${hobby=='기타'}">checked</c:if></c:forEach>/>기타
 			  </label>
-			</div>
+			</div> --%>
+			취미 : 
+	    <c:set var="varHobbys" value="${fn:split('등산/낚시/수영/독서/영화감상/바둑/축구/기타','/')}"/>
+	    <c:forEach var="tempHobby" items="${varHobbys}" varStatus="st"> &nbsp; &nbsp;
+	      <input type="checkbox" class="form-check-input" value="${tempHobby}" name="hobby" <c:if test="${fn:contains(hobby,varHobbys[st.index])}">checked</c:if>/>${tempHobby} &nbsp;
+	    </c:forEach>
     </div>
     <div class="form-group">
       <label for="content">자기소개</label>

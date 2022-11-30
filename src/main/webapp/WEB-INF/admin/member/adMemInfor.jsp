@@ -6,12 +6,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>memInfor.jsp</title>
+  <title>adMemInfor.jsp</title>
   <jsp:include page="/include/bs4.jsp"></jsp:include>
 </head>
 <body>
 	<div id="wrap">
-	<jsp:include page="/include/header.jsp"/>
 	<p><br/></p>
 	<div class="container" align="center">
 		<h2>회원 정보 상세 보기</h2>
@@ -40,13 +39,12 @@
           <p class="card-text">총 포인트 : ${vo.point}</p>
           <p class="card-text">공개유무 : ${vo.userInfor}</p>
       	</c:if>
-      <button type="button" class="btn btn-warning mx-auto d-block" onclick="location.href='${ctp}/memList.mem?pag=${pag}';">돌아가기</button>
+      	<a href="${ctp}/adMemList.ad?pag=${pag}" class="btn btn-success mx-auto d-block" >돌아가기</a> 
 	    </div>
 	  </div>
 	  <br/>
 	</div>
 	<p><br/></p>
 	</div>
-		<jsp:include page="/include/footer.jsp"/>
 </body>
 </html>
