@@ -18,7 +18,7 @@ public class AdMemListCommand implements AdminInterface {
 			HttpSession session = request.getSession();
 			int level = (int) session.getAttribute("sLevel");
 			
-			MemberDAO dao = new MemberDAO();
+			AdminDAO dao = new AdminDAO();
 			
 			// 1. 페이지(pag)를 결정한다.
 			// 2. 한 페이지의 분량을 결정한다.
@@ -28,7 +28,7 @@ public class AdMemListCommand implements AdminInterface {
 			// 6. 현재 화면에 보여주는 시작번호를 구한다.
 			int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
 			int pageSize=5;
-			int totRecCnt = dao.totRecCnt();
+			int totRecCnt = dao.totRecCnt("");
 			int totPage = (totRecCnt % pageSize)==0 ? totRecCnt / pageSize : (totRecCnt / pageSize) + 1;
 			int startIndexNo = (pag - 1) * pageSize;
 			int curScrStartNo = totRecCnt - startIndexNo;
@@ -43,7 +43,7 @@ public class AdMemListCommand implements AdminInterface {
 			int lastBlock = (totPage - 1) / blockSize;
 			
 			
-			ArrayList<MemberVO> vos = dao.getMemList(startIndexNo, pageSize, level);
+			ArrayList<MemberVO> vos = dao.getMemList(startIndexNo, pageSize);
 			
 			request.setAttribute("vos", vos);
 			request.setAttribute("pag", pag);

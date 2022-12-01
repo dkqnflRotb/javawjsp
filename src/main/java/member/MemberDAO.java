@@ -147,18 +147,33 @@ public class MemberDAO {
 		return res;
 	}
 
-	public ArrayList<MemberVO> getMemList(int startIndexNo, int pageSize, int level) {
+	//전체 게시글 가져오기
+	public ArrayList<MemberVO> getMemList(int startIndexNo, int pageSize, String mid, int level) {
 		ArrayList<MemberVO> vos = new ArrayList<>();
 		try {
-			if(level != 0) {
-				sql = "select * from member where userInfor ='공개' order by idx desc limit ?,?";
+			if(!mid.equals("")) {
+				if(level != 0) {
+					sql = "select * from member where userInfor = '공개' and mid like ? order by idx desc limit ?,?";
+				}
+				else {
+					sql = "select * from member where mid like ? order by idx desc limit ?,?";
+				}
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "%"+mid+"%");
+				pstmt.setInt(2, startIndexNo);
+				pstmt.setInt(3, pageSize);
 			}
 			else {
-				sql = "select * from member order by idx desc limit ?,?";
+				if(level != 0) {
+					sql = "select * from member where userInfor = '공개' order by idx desc limit ?,?";
+				}
+				else {
+					sql = "select * from member order by idx desc limit ?,?";
+				}
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
 			}
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startIndexNo);
-			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -249,17 +264,36 @@ public class MemberDAO {
 	}
 
 	// 방명록의 총 레코드 건수 구하기
-	public int totRecCnt() {
+	public int totRecCnt(String mid,int level) {
 		int totRecCnt = 0;
 		try {
-			sql="select count(*) as cnt from member";
-			pstmt = conn.prepareStatement(sql);
+			if(mid.equals("")) {
+				if(level!=0) {
+				sql="select count(*) as cnt from member where userInfor='공개'";
+				pstmt = conn.prepareStatement(sql);
+				}
+				else {
+					sql="select count(*) as cnt from member";
+					pstmt = conn.prepareStatement(sql);
+				}
+			}
+			else {
+				if(level!=0) {
+					sql="select count(*) as cnt from member where userInfor='공개' and mid like ?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+mid+"%");
+				}
+				else {
+					sql="select count(*) as cnt from member where mid like ? ";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, "%"+mid+"%"); 
+				}
+			}
 			rs = pstmt.executeQuery();
-			
 			rs.next();
 //			totRecCnt = rs.getInt(1);
 			totRecCnt = rs.getInt("cnt");
-			
+			System.out.println("totRecCmt = " + totRecCnt);
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
 		} finally {

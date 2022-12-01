@@ -20,21 +20,7 @@ public class UserDAO {
 	private String sql = "";
 	
 	UserVO vo = null;
-
-	public void setLevelCheck(int idx, int level) {
-		try {
-			sql = "update memver set level = ? where idx =?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, level);
-			pstmt.setInt(2, idx);
-			pstmt.executeUpdate();
-			
-		}catch (SQLException e) {
-			System.out.println("SQL 오류 : " + e.getMessage());
-		} finally {
-			getConn.pstmtClose();
-		}
-	}
+	
 
 	// user의 정보를 모두 가져오기
 	public ArrayList<UserVO> getUerList() {
@@ -103,5 +89,40 @@ public class UserDAO {
 				getConn.pstmtClose();
 		}
 		return res;
+	}
+	//유저 수정하기
+	public void userUpdate(UserVO vo) {
+		try {
+			sql = "update user set mid =?, name=?, age=?, address=? where idx =?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getAge());
+			pstmt.setString(4, vo.getAddress());
+			pstmt.setInt(5, vo.getIdx());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+				getConn.pstmtClose();
+		}
+	}
+ //유저 등록하기
+	public void userInput(UserVO vo) {
+		try {
+			sql = "insert into user values (default,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getAge());
+			pstmt.setString(4, vo.getAddress());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+				getConn.pstmtClose();
+		}
 	}
 }

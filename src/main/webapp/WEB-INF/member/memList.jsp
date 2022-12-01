@@ -30,7 +30,7 @@
 		<div class="container">
 	  	<h2>전체 회원 리스트</h2>
 	  	<br/>
-		  <form name="myform" method="post" action="${ctp}/memMemberSearch.mem">
+		  <form name="myform" method="post" action="${ctp}/memList.mem">
 		  	<div class="row mb-2">
 		  	  <div class="col form-inline">
 		  	    <input type="text" name="mid" class="form-control" autofocus />&nbsp;
@@ -40,53 +40,58 @@
 		  	</div>
 		  </form>
 	  	<table class="table table-hover text-center">
-	    <thead class="thead-dark">
-	      <tr>
-	        <th>번호</th>
-	        <th>아이디</th>
-	        <th>별명</th>
-	        <th>성명</th>
-	        <th>성별</th>
-	      </tr>
-	    </thead>
-	    <c:forEach var="vo" items="${vos}" varStatus="st">
-	    <tbody>
-	      <tr>
-	        <td>${vo.idx}</td>
-	        <td><a href="${ctp}/memInfor.mem?mid=${vo.mid}&pag=${pag}">${vo.mid}</a></td>
-	        <td>${vo.nickName }</td>
-	        <td>${vo.name }<c:if test="${sLevel == 0 && vo.userInfor == '비공개'}"><font color='red'><b>(비공개)</b></font></c:if></td>
-	        <td>${vo.gender }</td>
-	      </tr>
-	    </tbody>
-	    </c:forEach>
-	    <tr><td colspan="5" class="m-0 p-0"></td></tr>
-	  </table>
-	  <div class="text-center">
-			<ul class="pagination justify-content-center">
-				<c:if test="${pag > 1}">
-					<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=1">첫페이지</a></li>
-				</c:if>
-				<c:if test="${curBlock > 0}">
-					<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${(curBlock-1)*blockSize + 3}">이전페이지</a></li>
-				</c:if>
-				
-				<c:forEach var="i" begin="${(curBlock*blockSize) + 1}" end="${(curBlock*blockSize) +blockSize}" varStatus="st">
-					<c:if test="${i <= totPage && i == pag}">
-						<li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/memList.mem?pag=${i}">${i}</a></li>
+		    <thead class="thead-dark">
+		      <tr>
+		        <th>번호</th>
+		        <th>아이디</th>
+		        <th>별명</th>
+		        <th>성명</th>
+		        <th>성별</th>
+		      </tr>
+		    </thead>
+		    <%-- <c:if test="${vo.userInfor != '비공개'}"> --%>
+		    <c:set var="curScrStartNo" value="${curScrStartNo}"/>
+			    <c:forEach var="vo" items="${vos}" varStatus="st">
+				    <tbody>
+				      <tr>
+				        <td>${curScrStartNo}</td>
+				        <td><a href="${ctp}/memInfor.mem?mid=${vo.mid}&pag=${pag}">${vo.mid}</a></td>
+				        <td>${vo.nickName }</td>
+				        <td>${vo.name }<c:if test="${sLevel == 0 && vo.userInfor == '비공개'}"><font color='red'><b>(비공개)</b></font></c:if></td>
+				        <td>${vo.gender }</td>
+				      </tr>
+				    </tbody>
+				    <c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
+			    </c:forEach>
+		    <%-- </c:if> --%>
+		    <tr><td colspan="5" class="m-0 p-0"></td></tr>
+		  </table>
+		  <!-- 페이지 시작  -->
+		  <div class="text-center">
+				<ul class="pagination justify-content-center">
+					<c:if test="${pag > 1}">
+						<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=1">첫페이지</a></li>
 					</c:if>
-					<c:if test="${i <= totPage && i != pag}">
-						<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${i}">${i}</a></li>
+					<c:if test="${curBlock > 0}">
+						<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${(curBlock-1)*blockSize + 3}">이전페이지</a></li>
 					</c:if>
-				</c:forEach> 
-				<c:if test="${curBlock < lastBlock}">
-					<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${(curBlock+1)*blockSize + 1}">다음페이지</a></li>
-				</c:if>
-				<c:if test="${pag < totPage}">
-					<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${totPage}">마지막페이지</a></li>
-				</c:if>
-			</ul>
-		</div>
+					
+					<c:forEach var="i" begin="${(curBlock*blockSize) + 1}" end="${(curBlock*blockSize) +blockSize}" varStatus="st">
+						<c:if test="${i <= totPage && i == pag}">
+							<li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/memList.mem?pag=${i}">${i}</a></li>
+						</c:if>
+						<c:if test="${i <= totPage && i != pag}">
+							<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${i}">${i}</a></li>
+						</c:if>
+					</c:forEach> 
+					<c:if test="${curBlock < lastBlock}">
+						<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${(curBlock+1)*blockSize + 1}">다음페이지</a></li>
+					</c:if>
+					<c:if test="${pag < totPage}">
+						<li class="page-item"><a class="page-link text-secondary" href="${ctp}/memList.mem?pag=${totPage}">마지막페이지</a></li>
+					</c:if>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<p><br/></p>

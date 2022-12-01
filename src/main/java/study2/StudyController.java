@@ -46,6 +46,7 @@ public class StudyController extends HttpServlet{
 			viewPage += "/ajax/ajax1.jsp";
 		}
 		else if(com.equals("/userList")) {
+			System.out.println("sdfsdfsdfsdf");
 			command = new UserListCommand();
 			command.execute(request, response);
 			viewPage += "/ajax/userList.jsp";
@@ -57,6 +58,16 @@ public class StudyController extends HttpServlet{
 		}
 		else if(com.equals("/userDel")) {
 			command = new UserDelCommand();
+			command.execute(request, response);
+			return;  //창을 새로 안불러도되니 끝내 준다
+		}
+		else if(com.equals("/userUpdate")) {
+			command = new UserUpdateCommand();
+			command.execute(request, response);
+			return;  //창을 새로 안불러도되니 끝내 준다
+		}
+		else if(com.equals("/userInput")) {
+			command = new UserInputCommand();
 			command.execute(request, response);
 			return;  //창을 새로 안불러도되니 끝내 준다
 		}

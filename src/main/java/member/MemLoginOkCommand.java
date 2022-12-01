@@ -61,17 +61,13 @@ public class MemLoginOkCommand implements MemberInterFace {
 		}
 		// 오늘 재방문이라면 '총방문수','오늘방문수','포인트' 누적처리
 		dao.setMemTotalUpdate(mid, nowTodayPoint);
-		
-		System.out.println("3.idCheck =" + idCheck);
 		// 4.쿠키에 아이디저장유무
 		Cookie cookieMid = new Cookie("cMid", mid);
 		if(idCheck.equals("on")) {
 //			cookieMid.setPath("/");
 			cookieMid.setMaxAge(60*60*24*7);  // 쿠키 만료시간을 7일..
-			System.out.println("2.idCheck =" + idCheck);
 		}
 		else {
-			System.out.println("1.idCheck =" + idCheck);
 //			cookieMid.setPath("/");
 			cookieMid.setMaxAge(0);
 		}

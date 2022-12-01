@@ -13,10 +13,11 @@
   	function userSearch(mid){
 			$.ajax({
 				type : "post",
-				url  : "${ctp}/userSearch.st",   //주소는 절대주소로작성
+				url  : "${ctp}/userSearch.st",        /* 주소는 절대주소로작성 */
 				data : {mid : mid},
 				success:function(res){
 					let str =res.split("/");
+					$("#idx").val(str[0]);
 					$("#mid").val(str[1]);
 					$("#name").val(str[2]);
 					$("#age").val(str[3]);
@@ -27,6 +28,7 @@
 				}
 			});
   	}
+  	
   	function userDel(mid){
 			$.ajax({
 				type : "post",
@@ -46,6 +48,60 @@
 				}
 			});
   	}
+  	function userUpdate(){
+  		
+  		let idx= $("#idx").val();
+  		let mid= $("#mid").val();
+  		let name= $("#name").val();
+  		let age= $("#age").val();
+  		let address= $("#address").val();
+  		let query = {
+  				idx : idx,
+  				mid : mid,
+  				name : name,
+  				age : age,
+  				address : address
+  		}
+  		
+  		$.ajax({
+  			type : "post",
+  			url : "${ctp}/userUpdate.st",
+  			data : query,
+  			success:function(res){
+  				alert("수정완료!");
+  				
+  				location.reload();
+  			},
+  			error : function(){
+  				alert("전송실패!");
+  			}
+  		});
+  	}
+  	
+  	function userInput(){
+  		let mid= $("#mid").val();
+  		let name= $("#name").val();
+  		let age= $("#age").val();
+  		let address= $("#address").val();
+  		let query = {
+  				mid : mid,
+  				name : name,
+  				age : age,
+  				address : address
+  		}
+  		$.ajax({
+  			type : "post",
+  			url : "${ctp}/userInput.st",
+  			data : query,
+  			success:function(res){
+  				alert("등록완료!");
+  				location.reload();
+  			},
+  			error : function(){
+  				alert("전송실패!");
+  			}
+  		});
+  	}
   </script>
 </head>
 <body>
@@ -59,6 +115,10 @@
 				<table class="table table-bordered table-dark table-hover table-striped text-center">
 					<tr>
 						<td colspan="2" class="text-center"><h3>User '가입/수정' 하기 폼</h3></td>
+					</tr>
+					<tr>
+						<th>고유idx값</th>
+						<td><input type="text" name="idx" id="idx"  class="form-control" readonly /></td>
 					</tr>
 					<tr>
 						<th>아이디</th>

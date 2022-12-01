@@ -1,4 +1,4 @@
-package member;
+package board;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,28 +6,17 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class MemListCommand implements MemberInterFace {
+
+public class BoListCommand implements BoardInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
-		
-		HttpSession session = request.getSession();
-		int level = (int) session.getAttribute("sLevel");
-		
-		MemberDAO dao = new MemberDAO();
-		
-		// 1. 페이지(pag)를 결정한다.
-		// 2. 한 페이지의 분량을 결정한다.
-		// 3. 총 레코드 건수를 구한다.
-		// 4. 총 페이지 건수를 구한다.
-		// 5. 현재페이지의 시작 인덱스번호를 구한다.
-		// 6. 현재 화면에 보여주는 시작번호를 구한다.
+		BoardDAO dao = new BoardDAO();
+		// 페이징 처리 준비 시작
 		int pag = request.getParameter("pag") == null ? 1 : Integer.parseInt(request.getParameter("pag"));
-		int pageSize=5;
-		int totRecCnt = dao.totRecCnt(mid,level);
+		int pageSize = request.getParameter("pageSize") == null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
+		int totRecCnt = dao.totRecCnt();
 		int totPage = (totRecCnt % pageSize)==0 ? totRecCnt / pageSize : (totRecCnt / pageSize) + 1;
 		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStartNo = totRecCnt - startIndexNo;
@@ -42,15 +31,16 @@ public class MemListCommand implements MemberInterFace {
 		int lastBlock = (totPage - 1) / blockSize;
 		
 		
-		ArrayList<MemberVO> vos = dao.getMemList(startIndexNo, pageSize,mid, level);
+		ArrayList<BoardVO> vos = dao.getBoList(startIndexNo, pageSize);
 		
 		request.setAttribute("vos", vos);
 		request.setAttribute("pag", pag);
 		request.setAttribute("totPage", totPage);
 		request.setAttribute("curScrStartNo", curScrStartNo);
+		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
-		
 	}
+
 }

@@ -49,8 +49,12 @@ public class AdminController extends HttpServlet {
 			viewPage += "/member/adMemList.jsp";
 		}
 		else if(com.equals("/adMemberLevel")) {
-			System.out.println("dfdsfsdfsdasdf");
 			command = new AdMemberLevelCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/adMemDeleteOkCommand")) {
+			command = new AdMemDeleteOkCommandCommand();
 			command.execute(request, response);
 			return;
 		}

@@ -9,14 +9,8 @@
 	'sue strict';
 	function memberDel(){
 		let ans = confirm("정말로 탈퇴하시겠습니까?");
-		if(ans) {
-			ans = confirm("탈퇴후 1개월간은 같은아이디로 가입하실수 없습니다.\n탈퇴 하시겠습니까?");
-			if(ans) location.href="${ctp}/memDelete.mem";
-		}
-		
-		
+			if(ans) location.href="${ctp}/memOutPwdCheck.mem"; 
 	}
-
 
 </script>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -31,7 +25,7 @@
       </li>
       <c:if test="${level <= 4}">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">BOARD</a>
+	        <a class="nav-link" href="${ctp}/boList.bo">BOARD</a>
 	      </li>
 	      <c:if test="${level != 1 }">
 	      <li class="nav-item">
@@ -51,7 +45,8 @@
 	        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">My Page</a>
 	        <div class="dropdown-menu">
 			      <a class="dropdown-item" href="${ctp}/memMain.mem">회원방</a>
-			      <c:if test="${level !=1}"><a class="dropdown-item" href="${ctp}/memList.mem">회원리스트</a></c:if>
+			      <c:if test="${level == 0}"><a class="dropdown-item" href="${ctp}/memList.mem">회원리스트(관리자용)</a></c:if>
+			      <a class="dropdown-item" href="${ctp}/memList.mem">일반회원리스트</a>
 			      <a class="dropdown-item" href="${ctp}/memUpdatePwd.mem">회원비밀번호변경</a>
 			      <a class="dropdown-item" href="${ctp}/memPwdCheck.mem">회원정보변경</a>
 			      <a class="dropdown-item" href="javascript:memberDel()">회원탈퇴</a>

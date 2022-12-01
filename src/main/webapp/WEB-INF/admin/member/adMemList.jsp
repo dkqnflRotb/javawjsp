@@ -10,7 +10,9 @@
   <jsp:include page="/include/bs4.jsp"></jsp:include>
   <script>
     'use strict';
-    
+    var level;
+    var idx;
+    var sw;
     function midSearch() {
       let mid = myform.mid.value;
       if(mid.trim() == "") {
@@ -27,33 +29,55 @@
 	    		level: level
 	    } */
 	   
-    function levelUpdate(){
-    	let str = $("select[name=level] option:selected").val();
-	    //let str1 = str.split("/");
-    	let level = str;
-    	//let idx = str1[1];
-    	alert(level);
-    	//alert(idx);
+    function valCheck(res){
+    	let str =res.value.split("/");
+    	level = str[0];
+    	idx = str[1];
+    	sw=1;
+    }
+	   
+    function levelUpdate(voidx){
+    	//alert(level);
+    	if(sw!=0 && voidx==idx){
+	    	$.ajax({
+	    		url : "${ctp}/adMemberLevel.ad",
+	    		type : "get",
+	    		data : {
+		    		idx: idx,
+		    		level: level
+		    	},
+	    		success:function(res){
+	    			sw=0;
+	    			alert("회원 등급 변경 완료");
+	    		},
+	    		error:function(){
+	    			alert("회원 등급 변경 실패");
+	    		}
+	    	});
+    	}
+   		else{
+   			alert("회원 등급을 다시 선택 해주세요.");
+    	}
+ 	 	}
+    
+    
+    function delCheck(idx1){
+    	alert(idx1);
+    	let idx = idx1;
     	$.ajax({
-    		url : "${ctp}/adMemberLevel.ad",
+    		url : "${ctp}/adMemDeleteOkCommand.ad",
     		type : "get",
     		data : {
 	    		idx: idx,
-	    		level: level
 	    	},
     		success:function(res){
-    			alert("회원 등급 변경 완료");
+    			let ans = confirm("회원 탈퇴 시키겠습니까?");
+        	if(ans) myform.submit();
     		},
     		error:function(){
-    			alert("회원 등급 변경 실패");
+    			alert("회원 삭제 실패");
     		}
     	});
-    }
-    
-    
-    
-    function delCheck(${idx}){
-    	
     }
   </script>
 </head>
@@ -96,18 +120,18 @@
 	        <td>${vo.lastDate}</td>
 	        <td>
 	        	<form name="levelForm" id="levelForm" method="post" action="${ctp}/adMemberLevel.ad">
-	        		<select name="level" onchange="javascript:alert('회원정보를 변경하시려면, 등급변경버튼을 클릭하세요.')">
-	        			<option value="0" <c:if test="${vo.level==0}">selected</c:if>>관리자</option>
-	        			<option value="1" <c:if test="${vo.level==1}">selected</c:if>>준회원</option>
-	        			<option value="2" <c:if test="${vo.level==2}">selected</c:if>>정회원</option>
-	        			<option value="3" <c:if test="${vo.level==3}">selected</c:if>>우수회원</option>
+	        		<select name="level" onchange="valCheck(this)">
+	        			<option value="0/${vo.idx}" <c:if test="${vo.level==0}">selected</c:if>>관리자</option>
+	        			<option value="1/${vo.idx}" <c:if test="${vo.level==1}">selected</c:if>>준회원</option>
+	        			<option value="2/${vo.idx}" <c:if test="${vo.level==2}">selected</c:if>>정회원</option>
+	        			<option value="3/${vo.idx}" <c:if test="${vo.level==3}">selected</c:if>>우수회원</option>
 	        		</select>
-	        		<input type="button" value="등급변경" onclick="levelUpdate()" class="btn btn-warning btn-sm"/>
+	        		<input type="button" value="등급변경" onclick="levelUpdate(${vo.idx})" class="btn btn-warning btn-sm"/>
 	        		<input type="hidden" name="idx" value="${vo.idx}" class="btn btn-warning btn-sm"/>
 	        	</form>
 	        </td>
 	        <td>
-	        	<c:if test="${vo.userDel=='OK'}"><a href="javascript:delCheck(${idx})"><font color="red">탈퇴신청</font></a></c:if>
+	        	<c:if test="${vo.userDel=='OK'}"><a href="javascript:delCheck(${vo.idx})"><font color="red">탈퇴신청</font></a></c:if>
 	        	<c:if test="${vo.userDel!='OK'}">활동중</c:if>
 	        </td>
 	      </tr>
