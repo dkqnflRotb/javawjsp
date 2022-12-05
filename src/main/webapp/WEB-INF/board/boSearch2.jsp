@@ -34,7 +34,10 @@
 	<p><br/></p>
 	<div id="wrap">
 		<div class="container">
-  		<h2 class="text-center"><b>게 시 판 리 스 트</b></h2>
+  		<h2 class="text-center"><b>게 시 판 조 건 검 색 리 스 트</b></h2>
+  		<div class="text-center">
+  			(<font color="blue">${searchTitle}</font>(으)로 <font color="red">${searchString }</font>(을)를 검색한 결과 ${searchCount } 건이 검색되었습니다.)
+  		</div>
   		<br/>
   		<table class="table table-borderless">
   			<tr>
@@ -63,25 +66,14 @@
 				<%-- <c:set var="curScrStartNo" value="${curScrStartNo}"/>  넣는게 정석이고 좋지만 생략가능 --%>
   			<c:forEach var="vo" items="${vos}">
   				<tr>
-  					<td>${curScrStartNo}</td>
-  					<td class="text-left">
-  						<a href="${ctp}/boContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
-  						<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if>
-  						<c:if test="${vo.hour_diff <= 24}"><img src="${ctp}/images/new.gif"></c:if>
-  					</td>
+  					<td>${searchCount}</td>
+  					<td class="text-left"><a href="${ctp}/boContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a><c:if test="${vo.hour_diff <= 24}"><img src="${ctp}/images/new.gif"></c:if></td>
   					<td>${vo.nickName }</td>
-  					<%-- <td>${fn:substring(vo.wDate,0,10)}(${vo.day_diff})</td> --%>
-  					
-  					<!-- 오늘날짜는 시간으로 나오고 오늘이 지나면 (년-월-일) 로 출력된다.  -->
-  					<%-- <td>${vo.day_diff > 0 ? fn:substring(vo.wDate,0,10) :fn:substring(vo.wDate,11,19) }</td> --%>
-  					
-  					<!-- 24시간 이지나면 (년-월-일) 로 출력되고 그전이면 시간으로 출력된다.  -->
-  					<td>${vo.hour_diff > 24 ? fn:substring(vo.wDate,0,10) : fn:substring(vo.wDate,11,19)}</td>
-  					
+  					<td>${vo.wDate }</td>
   					<td>${vo.readNum }</td>
   					<td>${vo.good }</td>
   				</tr>
-  				<c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
+  				<c:set var="searchCount" value="${searchCount-1}"/>
   			</c:forEach>
   			<tr><td colspan="6" class="m-0 p-0"></td></tr>
   		</table> 
@@ -122,8 +114,6 @@
 					</select>						
 					<input type="text" name="searchString" id="searchString"/>
 					<input type="button" value="검색" onclick="searchCheck()" class="btn btn-secondary btn-sm"/>
-					<input type="hidden" name="pag" value="${pag }"/>
-					<input type="hidden" name="pageSize" value="${pageSize }"/>
 				</form>
 			</div>
 		</div>

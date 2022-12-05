@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import board.BoDeleteOkCommand;
+
 @WebServlet("*.st")
 public class StudyController extends HttpServlet{
 	@Override
@@ -71,6 +73,39 @@ public class StudyController extends HttpServlet{
 			command.execute(request, response);
 			return;  //창을 새로 안불러도되니 끝내 준다
 		}
+		else if(com.equals("/upLoad1")) {
+			viewPage += "/pdstest/upLoad1.jsp";
+		}
+		else if(com.equals("/upLoad1Ok")) {
+			command = new UpLoad1OkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/upLoad3")) {
+			viewPage += "/pdstest/upLoad3.jsp";
+		}
+		else if(com.equals("/upLoad2Ok")) {
+			command = new UpLoad2OkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/upLoad4")) {
+			viewPage += "/pdstest/upLoad4.jsp";
+		}
+		else if(com.equals("/123123")) {
+			viewPage = "/123123.jsp";
+		}
+		else if(com.equals("/downLoad")) {
+			command = new DownLoadCommand();
+			command.execute(request, response);
+			viewPage += "/pdstest/downLoad.jsp";
+		}
+		else if(com.equals("/fileDelete")) {
+			command = new FileDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

@@ -28,7 +28,8 @@
 	<p><br/></p>
 	<div id="wrap">
 		<div class="container">
-	  	<h2>전체 회원 리스트</h2>
+	  	<c:if test="${sLevel != 0}"><h2>전체 회원 리스트</h2></c:if>
+	  	<c:if test="${sLevel == 0}"><h2>전체 회원 리스트(관리자용)</h2></c:if>
 	  	<br/>
 		  <form name="myform" method="post" action="${ctp}/memList.mem">
 		  	<div class="row mb-2">

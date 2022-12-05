@@ -32,6 +32,26 @@ insert into board values (default,'관리맨','게시판 서비스를 시작합�
 
 select * from board;
 
+/* 게시판에 댓글 달기 */
+create table boardReply (
+	idx int not null auto_increment, /* 댓글의 고유번호*/
+	boardIdx int not null,           /* 원본의 고유 번호(외래키로 지정) */
+	mid     varchar(20) not null,    /* 댓글 올린이의 아이디 */
+	nickName varchar(20) not null,   /* 댓글 올린이의 닉네임 */
+	wDate datetime default now(),    /* 댓글 올린 날짜 */
+	hostIp varchar(50) not null, 	   /* 댓글 올린 PC의 IP */
+	content text not null,		       /* 댓글 내용 */
+	
+	primary key(idx),
+	foreign key(boardIdx) references board(idx)
+--	on update cascade
+--	on delete restrict 
+);
+
+desc boardReply;
+select * from boardReply;
+
+
 /* 날짜 처리 연습 */
 -- now() : 오늘 날짜와 시간을 보여준다.
 select now();    
@@ -107,5 +127,59 @@ select *, datediff(now(), wDate) as day_diff from board;
 
 select timestampdiff(hour, now(), '2022-11-30');
 select timestampdiff(hour, '2022-11-30', now());
+select timestampdiff(hour, wDate, now()) from board;
+select *,timestampdiff(hour, wDate, now()) as hour_diff from board;
+select *,datediff(now(), wDate) as day_diff, timestampdiff(hour, wDate, now()) as hour_diff from board;
 
+select date(now());SELECT TIMESTAMPDIFF(minute, date_format('2022-04-20 01:01', '%Y-%m-%d %H:%i'), date_format('2022-12-31 23:59', '%Y-%m-%d %H:%i')) AS time_diff;
+SELECT TIMESTAMPDIFF(hour, date_format('2022-11-30 13:01', '%Y-%m-%d %H:%i'), date_format(now(), '%Y-%m-%d %H:%i')) AS time_diff;
+SELECT *,TIMESTAMPDIFF(hour, date_format(wDate, '%Y-%m-%d %H:%i'), date_format(now(), '%Y-%m-%d %H:%i')) AS time_diff from board;		-- date() : 일 출력
+
+
+/* 이전글 다음글 체크 */
+select * from board;
+
+-- board idx가 5번일경우 5보다 작은 값을 꺼내고 내림차순정렬후 limit 1 을 써서 첫번째 파일을 출력한다.
+select * from board where idx <5 order by idx desc limit 1;
+
+-- board idx가 5번일경우 5보다 큰 값을 꺼내고 limit 1 을 써서 첫번째 파일을 출력한다.
+select * from board where idx >5 limit 1;
+
+/* 댓글의 수를 전체 List에 출력하기 연습 */
+select * from boardReply order by idx desc;
+
+-- 댓글 테이블(boardReply)에서 board테이블의 고유번호 22번글에 딸려있는 댓글의 갯수는?
+select count(*) from boardReply where boardIdx =22;
+-- 댓글 테이블(boardReply)에서 board테이블의 고유번호 22번글에 딸려있는 댓글의 갯수는?
+-- 원본글의 고유번호와 함께 출력
+select boardIdx,count(*) from boardReply where boardIdx =22;
+
+-- 댓글 테이블(boardReply)에서 board테이블의 고유번호 22번글에 딸려있는 댓글의 갯수는?
+-- 원본글의 고유번호와 함께 출력, 갯수의 별명은 replyCnt
+select boardIdx,count(*) as replyCnt from boardReply where boardIdx =22;
+
+
+-- 댓글 테이블(boardReply)에서 board테이블의 고유번호 22번글에 딸려있는 댓글의 갯수는?
+-- 원본글의 고유번호와 함께 출력, 갯수의 별명은 replyCnt
+-- 이때 원본글을 쓴 닉네임을 함께 출력하시오. 단, 닉네임은 board(원본글)테이블에서 가져와서 출력하시오.
+
+select boardIdx,nickname,count(*) as replyCnt from boardReply where boardIdx = 22;
+SELECT boardIdx,(SELECT nickName FROM board where idx = 22) AS nickname,count(*) AS replyCnt FROM boardReply WHERE boardIdx = 22;
+
+-- 앞의 문장을 부모테이블(board)의 관점에서 보자....
+SELECT mid, nickname FROM board WHERE idx = 22;
+
+-- 앞의 닉네임을 자식(댓글) 테이블(boardReply)에서 가져와서 보여준다면??? 자식이 여러개고 부모가하나면 오류난다
+SELECT mid, (SELECT nickName FROM boardReply WHERE boardIdx=22) AS nickname FROM board WHERE idx = 22;
+
+-- 부모관점(board)에서 고유번호 22번의 아이디와, 현재글에 달려있는 댓글의 개수 ???
+SELECT mid, (SELECT count(*) FROM boardReply WHERE boardIdx=22) AS replyCnt FROM board WHERE idx = 22;
+
+-- 부모관점(board)에서 board테이블의 모든 내용과, 현재글에 달려있는 댓글의 개수를 가져오되, 최근글 5개만 출력?
+
+SELECT *, (SELECT count(*) FROM boardReply WHERE boardIdx=board.idx) AS replyCnt FROM board ORDER BY idx DESC limit 5;
+
+-- 부모관점(board)에서 board테이블의 모든 내용과, 현재글에 달려있는 댓글의 개수를 가져오되, 최근글 5개만 출력?
+-- 각각의 테이블에 별명을 붙여서 앞의 내용을 변경시켜보자.
+SELECT *, (SELECT count(*) FROM boardReply WHERE boardIdx=b.idx) AS replyCnt FROM board b ORDER BY idx DESC limit 5;
 

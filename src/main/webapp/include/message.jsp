@@ -39,6 +39,13 @@
     else if(msg == "boInputNo") msg = "게시글 입력 실패!";
     else if(msg == "passwordOutYes") msg = "회원이 탈퇴처리 되었습니다.";
     else if(msg == "passwordOutNo") msg = "비밀번호를 정확히 입력해주세요.";
+    else if(msg == "boDeleteOk") msg = "게시글이 삭제 되었습니다.";
+    else if(msg == "boDeleteNo") msg = "게시글이 삭제되지 않았습니다.";
+    else if(msg == "userCheckNO") msg = "정상적인 사용자가 아니시군요....혹시 해커???";
+    else if(msg == "boUpdateOk") msg = "게시글 수정 완료";
+    else if(msg == "boUpdateNo") msg = "게시글이 수정 실패";
+    else if(msg == "upLoad1Ok") msg = "파일 업로드 성공";
+    else if(msg == "upLoad1No") msg = "파일 업로드 실패";
     
     alert(msg);
     if(url != "") location.href = url;

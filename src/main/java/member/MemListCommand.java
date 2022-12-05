@@ -51,6 +51,5 @@ public class MemListCommand implements MemberInterFace {
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
-		
 	}
 }
