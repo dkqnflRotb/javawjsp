@@ -42,16 +42,16 @@
 	  <!-- The slideshow -->
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="<%=request.getContextPath()%>/images/제네시스_G80.jpg" alt="봄의 왈츠" width="100%" height="200px">
+	      <img style="padding:0px;border-radius:0rem;" src="<%=request.getContextPath()%>/images/제네시스_G80.jpg" alt="봄의 왈츠" width="100%" height="200px">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="<%=request.getContextPath()%>/images/제네시스_G70.jpg" alt="여름향기" width="100%" height="200px">
+	      <img style="padding:0px;border-radius:0rem;" src="<%=request.getContextPath()%>/images/제네시스_G70.jpg" alt="여름향기" width="100%" height="200px">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="<%=request.getContextPath()%>/images/K9.jpg" alt="가을동화" width="100%" height="200px">
+	      <img style="padding:0px;border-radius:0rem;" src="<%=request.getContextPath()%>/images/K9.jpg" alt="가을동화" width="100%" height="200px">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="<%=request.getContextPath()%>/images/기아_K8.jpg" alt="겨울연가" width="100%" height="200px">
+	      <img style="padding:0px;border-radius:0rem;" src="<%=request.getContextPath()%>/images/기아_K8.jpg" alt="겨울연가" width="100%" height="200px">
 	    </div>
 	  </div>
 	  <!-- Left and right controls -->

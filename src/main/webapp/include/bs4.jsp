@@ -5,17 +5,17 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 	body {
-    height: 80%;
-  }
-	#wrap {
-    min-height: 100%;
-    position: relative;
-    padding-bottom: 60px;
+	   margin:0;
+	   padding:0;
+	   height:100%;
 	}
-	footer {
-		position: relative; 
-    transform: translatY(-100%);
+	
+	#wrap {
+			min-height: 680px;
+			position: relative;
+			padding-bottom: 60px;
 	}
 </style>
