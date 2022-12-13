@@ -19,17 +19,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" />
 
 	<link type="text/css" rel="stylesheet" href="http://gogorentcar.com/hcd/css/style.css?ver=1573981336">
- 	<!-- <link href="http://gogorentcar.com/tpl/des/css/style.css?ver=1578489884" rel="stylesheet" type="text/css"> -->
- 
 	<link href="http://gogorentcar.com/tpl/des/css/reset.css?ver=1573981339" rel="stylesheet" type="text/css">
-
-<!-- <link type="text/css" rel="stylesheet" href="http://gogorentcar.com/hcd/css/style.css?ver=1573981336" /> -->
-
-<!-- <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico?2' /> -->
-
-<!-- <script type='text/javascript' src='http://gogorentcar.com/hcd/js/jquery.js?ver=1573981337'></script> --> 
-<script type='text/javascript' src='http://gogorentcar.com/hcd/js/hcd.js?ver=1573981337'></script>
-<link rel="stylesheet" href="http://gogorentcar.com/tpl/des/css/swiper.min.css">
+	<script type='text/javascript' src='http://gogorentcar.com/hcd/js/hcd.js?ver=1573981337'></script>
+	<link rel="stylesheet" href="http://gogorentcar.com/tpl/des/css/swiper.min.css">
 
 	<style>
 		html, body {
@@ -173,7 +165,8 @@
 		    width: 33px;
 		    height: 38px;
 		    margin-top: 14px;
-		    background: url(images/20221212_223256left.png) no-repeat;
+		    background: url(images/wRRR.png) no-repeat;
+		    transform:scalex(-1);
 		    vertical-align: top;
 		    border: none;
 		    float: left;
@@ -309,10 +302,10 @@
 		    line-height: 24px;
 		}
 		button.next {
-		    width: 28px;
-    		margin-top: 13px;
+		    width: 32px;
+    		margin-top: 14px;
 		    height: 30px;
-    		background: url("images/pngwing_Right.png") no-repeat;
+    		background: url("images/wRRR.png") no-repeat;
 		    vertical-align: top;
 		    border: none;
 		    float: right;
@@ -656,7 +649,7 @@
 		}
 		p {
 		    display: block;
-		    margin-block-start: 1em;
+		    margin-block-start: 0.9em;
 		    margin-block-end: 1em;
 		    margin-inline-start: 0px;
 		    margin-inline-end: 0px;

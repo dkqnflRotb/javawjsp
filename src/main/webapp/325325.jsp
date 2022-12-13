@@ -11,12 +11,12 @@
   <script>
   </script>
   <style>
-	*, *::before, *::after {
+	/* *, *::before, *::after {
 			margin: 0;
 			padding: 0;
 			box-sizing: border-box;
 	}
-	
+	 */
 	img {
 			width: 100%;
 			object-fit: cover;
@@ -93,7 +93,7 @@
 	}
 	
 	.card:nth-child(odd) {
-			flex: 1 1 25%;
+			flex: 1 1 1;
 	}
 	
 	.container__content--flow:hover .card:not(:hover) {

@@ -62,6 +62,7 @@
 	        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">My Page</a>
 	        <div class="dropdown-menu">
 			      <a class="dropdown-item" href="${ctp}/memMain.mem">회원방</a>
+			      <a class="dropdown-item" href="${ctp}/chatting/chat.jsp">채팅방</a>
 			      <a class="dropdown-item" href="https://evowars.io">검키우기</a>
 			      <a class="dropdown-item" href="${ctp}/schedule.sc">일정관리</a>
 			      <a class="dropdown-item" href="${ctp}/memList.mem">일반회원리스트<c:if test="${level == 0}">(관리자)</c:if></a>
